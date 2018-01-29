@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射接口-->
+<mapper namespace = "com.ly.mybatis.mapper.UserMapper">
+	<select id="selectByName" parameterType="User" resultType="User">
+		select * from user where username = #{username}
+	</select>
+	<update id="updateUser" parameterType="User">
+		update user set username=#{username},age=#{age},gender=#{gender},phone=#{phone},address=#{address} where id = #{id}
+	</update>
+	<select id="getById" parameterType="int" resultType="User">
+		select * from user where id = #{id}
+	</select>	
+	<select id="getAllUser" resultType="User">
+		select * from user
+	</select>
+	<insert id="saveEmail" parameterType="Mail">
+		insert into mail(tittle,content,time,uid,sender,mailfile) values(#{tittle},#{content},#{time},#{uid},#{sender},#{mailfile})
+	</insert>
+	<select id="getEmailById" parameterType="int" resultType="Mail">
+		select * from mail where uid = #{id}
+	</select>
+	<select id="selectEmailById" parameterType="int" resultType="Mail">
+		select * from mail where mid = #{id}
+	</select>
+	<update id="updateRead" parameterType="Mail">
+		update mail set isread = #{isread} where mid = #{mid}
+	</update>
+	<insert id="saveEmailPlay" parameterType="Mail">
+		insert into mailplay values(#{mid},#{tittle},#{content},#{time},#{uid},#{sender},#{mailfile},#{isread})
+	
+	</insert>
+	<delete id="deleteEmail" parameterType="int">
+		delete from mail where mid = #{id}
+	</delete>
+	<select id="getEmailPlay" parameterType="int" resultType="Mail">
+		select * from mailplay where uid = #{id}
+	</select>
+	<select id="getEmailPlayById" parameterType="int" resultType="Mail">
+		select * from mailplay where mid = #{id}
+	</select>
+	<insert id="saveBackEmail" parameterType="Mail">
+		insert into mail values(#{mid},#{tittle},#{content},#{time},#{uid},#{sender},#{mailfile},#{isread})
+	
+	</insert>
+	<delete id="delEmailPlay" parameterType="int">
+		delete from mailplay where mid = #{id}
+	</delete>
+	<select id="getAdminList" parameterType="int" resultType="Vacation">
+		select * from vacation where approver = #{id}
+	</select>
+	<select id="getVacationList" parameterType="int" resultType="Vacation">
+		select * from vacation where uid = #{id}
+	</select>
+	<select id="getAdminUser" resultType="User">
+		select * from user where isadmin = 1
+	</select>
+	<insert id="saveApply" parameterType="Vacation">
+		insert into vacation(uid,username,begin,end,day,reason,approver,isapprove) values(#{uid},#{username},#{begin},#{end},#{day},#{reason},#{approver},#{isapprove})
+	</insert>
+	<select id="selectVacaById" parameterType="int" resultType="Vacation">
+		select * from vacation where vid = #{id}
+	</select>
+	<update id="updateVacation" parameterType="Vacation">
+		update vacation set isapprove = #{isapprove} where vid = #{vid}
+	</update>
+	<update id="updateVacationf" parameterType="Vacation">
+		update vacation set isapprove = #{isapprove} where vid = #{vid}
+	</update>
+	<update id="updateUserAccount" parameterType="User">
+		update user set username = #{username},password = #{password} where id = #{id}
+	</update>
+	<select id="getUserList" resultType="User">
+		select * from user where isadmin = 0
+	</select>
+	<insert id="saveManageUser" parameterType="User">
+	 insert into user(username,password,gender,age,phone,address,isadmin) values(#{username},#{password},#{gender},#{age},#{phone},#{address},#{isadmin})
+	</insert>
+	<select id="checkUser" parameterType="string" resultType="User">
+		select * from user where username = #{name}
+	</select>
+</mapper>
